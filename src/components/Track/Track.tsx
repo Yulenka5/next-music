@@ -1,12 +1,21 @@
 import styles from "./Track.module.css";
 import { TrackType } from "@/types/tracks";
+import {timeFormat} from "@/utils/helpers";
+import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 
 type TrackProps = {
     track: TrackType
 }
 
 function Track ({track}: TrackProps) {
-    const {name, author, album, duration_in_seconds: duration, _id} = track
+    const {name, author, album, duration_in_seconds} = track
+    const time = timeFormat(duration_in_seconds)
+
+    const {setCurrentTrack} = useCurrentTrack()
+    const handleTrackClick = ()=> {
+        setCurrentTrack
+    }
+
     return (
         <div className={styles.contentPlaylist}>
             <div className={styles.playlistItem}>
@@ -35,7 +44,7 @@ function Track ({track}: TrackProps) {
                         <svg>
                             <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                         </svg>
-                        <span className={styles.trackTimeText}>{duration}</span>
+                        <span className={styles.trackTimeText}>{time}</span>
                     </div>
                 </div>
             </div>
