@@ -1,6 +1,8 @@
 .centerblockContent {
     display: flex;
     flex-direction: column;
+    height: 700px;
+    overflow: auto;
 }
 
 .contentTitle {
