@@ -13,12 +13,12 @@ function Track ({track}: TrackProps) {
 
     const {setCurrentTrack} = useCurrentTrack()
     const handleTrackClick = ()=> {
-        setCurrentTrack
+        setCurrentTrack(track)
     }
 
     return (
         <div className={styles.contentPlaylist}>
-            <div className={styles.playlistItem}>
+            <div className={styles.playlistItem} onClick={handleTrackClick}>
                 <div className={styles.playlistTrack}>
                     <div className={styles.trackTitle}>
                         <div className={styles.trackTitleImage}>
