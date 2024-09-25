@@ -1,9 +1,24 @@
 import styles from "./Track.module.css";
+import { TrackType } from "@/types/tracks";
+import {timeFormat} from "@/utils/helpers";
+import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 
-function Track () {
+type TrackProps = {
+    track: TrackType
+}
+
+function Track ({track}: TrackProps) {
+    const {name, author, album, duration_in_seconds} = track
+    const time = timeFormat(duration_in_seconds)
+
+    const {setCurrentTrack} = useCurrentTrack()
+    const handleTrackClick = ()=> {
+        setCurrentTrack(track)
+    }
+
     return (
         <div className={styles.contentPlaylist}>
-            <div className={styles.playlistItem}>
+            <div className={styles.playlistItem} onClick={handleTrackClick}>
                 <div className={styles.playlistTrack}>
                     <div className={styles.trackTitle}>
                         <div className={styles.trackTitleImage}>
@@ -12,29 +27,28 @@ function Track () {
                             </svg>
                         </div>
                         <div className={styles.trackTitleText}>
-                            <a className={styles.trackTitleLink} href="http://"
-                            >Guilt <span></span
-                            ></a>
+                            <span className={styles.trackTitleLink}
+                            >{name}<span></span
+                            ></span>
                         </div>
                     </div>
                     <div className={styles.trackAuthor}>
-                        <a className={styles.trackAuthorLink} href="http://">Nero</a>
+                        <span className={styles.trackAuthorLink}>{author}</span>
                     </div>
                     <div className={styles.trackAlbum}>
-                        <a className={styles.trackAlbumLink} href="http://"
-                        >Welcome Reality</a
+                        <span className={styles.trackAlbumLink}
+                        >{album}</span
                         >
                     </div>
                     <div className={styles.trackTime}>
                         <svg>
                             <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                         </svg>
-                        <span className={styles.trackTimeText}>4:44</span>
+                        <span className={styles.trackTimeText}>{time}</span>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
 

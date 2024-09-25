@@ -1,7 +1,13 @@
 import TrackPlay from "@/components/TrackPlay/TrackPlay";
 import styles from "./Player.module.css";
+import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 
 function Player () {
+    const {currentTrack} = useCurrentTrack()
+    if (!currentTrack) {
+        return null
+    }
+    const {name, author} = currentTrack
     return (
         <div className={styles.barPlayer}>
             <div className={styles.playerControls}>
@@ -31,7 +37,7 @@ function Player () {
                     </svg>
                 </div>
             </div>
-            <TrackPlay />
+            <TrackPlay name={name} author={author}/>
         </div>
     )
 

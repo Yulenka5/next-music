@@ -2,7 +2,11 @@ import styles from "./TrackPlay.module.css";
 import shared from "@/components/SharedButtons/SharedButtons.module.css";
 import classNames from "classnames"
 
-function TrackPlay () {
+type TrackPlayProps = {
+    name: string,
+    author: string
+}
+function TrackPlay ({name, author}: TrackPlayProps) {
     return (
         <div className={styles.playerTrackPlay}>
             <div className={styles.trackPlayContain}>
@@ -13,11 +17,11 @@ function TrackPlay () {
                 </div>
                 <div className={styles.trackPlayAuthor}>
                     <a className={styles.trackPlayAuthorLink} href="http://"
-                    >Ты та...</a
+                    >{name}</a
                     >
                 </div>
                 <div className={styles.trackPlayAlbum}>
-                    <a className={styles.trackPlayAlbumLink} href="http://">Баста</a>
+                    <a className={styles.trackPlayAlbumLink} href="http://">{author}</a>
                 </div>
             </div>
 

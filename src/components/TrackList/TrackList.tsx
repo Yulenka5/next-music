@@ -1,8 +1,13 @@
+"use client"
 import Track from "@/components/Track/Track";
 import styles from "./TrackList.module.css";
 import classNames from "classnames";
+import {TrackType} from "@/types/tracks";
 
-function TrackList () {
+type TrackListProps = {
+    tracks: TrackType[]
+}
+function TrackList ({tracks}: TrackListProps) {
     return (
         <div className={styles.centerblockContent}>
             <div className={styles.contentTitle}>
@@ -15,7 +20,7 @@ function TrackList () {
                     </svg>
                 </div>
             </div>
-            <Track />
+            {tracks.map((track)=>{ return <Track key={track._id} track={track} /> })}
      </div>
     )
 }
