@@ -9,7 +9,9 @@ import ProgressBar from "@/components/Bar/ProgressBar/ProgressBar";
 function Bar() {
     const {currentTrack} = useCurrentTrack()
     const [isPlaying, setIsPlaying] = useState<boolean>(false)
+    const [loop, setLoop] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<number>(0)
+
     const audioRef = useRef<HTMLAudioElement | null>(null)
     const duration = audioRef.current?.duration || 0
 
@@ -23,6 +25,14 @@ function Bar() {
             }
         }
         setIsPlaying((prev) => !prev)
+    }
+
+    const handleLoop = () => {
+        const audio = audioRef.current
+        if(audio) {
+            audio.loop = !loop
+            setLoop((prev)=> !prev)
+        }
     }
 
     const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
