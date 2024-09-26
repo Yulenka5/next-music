@@ -9,11 +9,14 @@ import ProgressBar from "@/components/Bar/ProgressBar/ProgressBar";
 function Bar() {
     const {currentTrack} = useCurrentTrack()
     const [isPlaying, setIsPlaying] = useState<boolean>(false)
-    const [loop, setLoop] = useState<boolean>(false)
+    const [isLoop, setIsLoop] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<number>(0)
 
     const audioRef = useRef<HTMLAudioElement | null>(null)
-    const duration = audioRef.current?.duration || 0
+
+    if (!currentTrack) {
+        return null
+    }
 
     const handlePlay = () => {
         const audio = audioRef.current
@@ -30,25 +33,24 @@ function Bar() {
     const handleLoop = () => {
         const audio = audioRef.current
         if(audio) {
-            audio.loop = !loop
-            setLoop((prev)=> !prev)
+            audio.loop = !isLoop
+            setIsLoop((prev)=> !prev)
         }
     }
 
-    const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (audioRef.current) {
-            audioRef.current.currentTime = Number (e.target.value)
-        }
+    const handleTimeUpdate = (e: React.ChangeEvent<HTMLAudioElement>) => {
+        setCurrentTime(e.currentTarget.currentTime)
     }
+
 
     return (
         <div className={styles.bar}>
             <div className={styles.barContent}>
-                <audio className={styles.audio} ref={audioRef}></audio>
-                <ProgressBar max={duration} value={currentTime} step={0.01} onChange={handleSeek}/>
+                <audio className={styles.audio} ref={audioRef} src={currentTrack.track_file} onTimeUpdate={handleTimeUpdate} />
+                <ProgressBar audioRef={audioRef} value={currentTime} />
                 <div className={styles.barPlayerBlock}>
-                    <Player/>
-                    <Volume/>
+                    <Player handlePlay={handlePlay} isPlaying={isPlaying} handleLoop={handleLoop} isLoop={isLoop}/>
+                    <Volume audioRef={audioRef}/>
                 </div>
             </div>
         </div>
