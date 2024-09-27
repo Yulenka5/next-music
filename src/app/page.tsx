@@ -1,4 +1,3 @@
-"use client"
 import Bar from "@/components/Bar/Bar";
 import Main from "@/components/Main/Main";
 import styles from "./page.module.css";

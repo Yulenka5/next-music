@@ -17,10 +17,22 @@ function Player({handlePlay, handleLoop, isPlaying, isLoop}: PlayerProps) {
     }
     const {name, author} = currentTrack
 
+    const handleClickPrev = () => {
+        alert("еще не реализовано")
+    }
+
+    const handleClickNext = () => {
+        alert("еще не реализовано")
+    }
+
+    const handleClickShuffle = () => {
+        alert("еще не реализовано")
+    }
+
     return (
         <div className={styles.barPlayer}>
             <div className={styles.playerControls}>
-                <div className={styles.playerBtnPrev}>
+                <div className={styles.playerBtnPrev} onClick={handleClickPrev}>
                     <svg>
                         <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
                     </svg>
@@ -34,7 +46,7 @@ function Player({handlePlay, handleLoop, isPlaying, isLoop}: PlayerProps) {
                             <use xlinkHref="/img/icon/sprite.svg#icon-play"></use>
                         </svg>)}
                 </div>
-                <div className={styles.playerBtnNext}>
+                <div className={styles.playerBtnNext} onClick={handleClickNext}>
                     <svg>
                         <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
                     </svg>
@@ -44,7 +56,7 @@ function Player({handlePlay, handleLoop, isPlaying, isLoop}: PlayerProps) {
                         <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
                     </svg>
                 </div>
-                <div className={styles.playerBtnShuffle}>
+                <div className={styles.playerBtnShuffle} onClick={handleClickShuffle}>
                     <svg>
                         <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
                     </svg>
