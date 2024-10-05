@@ -6,7 +6,7 @@ type CurrentTrackContextValue = {
     currentTrack: TrackType | null,
     setCurrentTrack: Dispatch<SetStateAction<TrackType | null>>;
 }
-const CurrentTrackContext = createContext<CurrentTrackContextValue | null>(null)
+const CurrentTrackContext = createContext<CurrentTrackContextValue | undefined>(undefined)
 
 type CurrentTrackProvider = {
     children: ReactNode
@@ -19,5 +19,9 @@ export function CurrentTrackProvider({children}: CurrentTrackProvider) {
 }
 
 export function useCurrentTrack() {
-    return useContext(CurrentTrackContext)
+    const context = useContext(CurrentTrackContext)
+    if (context === undefined) {
+        throw new Error("useCurrentTrack должен использоваться внутри CurrentTrackProvider")
+    }
+    return context
 }

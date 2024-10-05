@@ -65,6 +65,10 @@
         fill: transparent;
         stroke: #696969;
     }
+
+    &.active svg {
+        stroke: #ffffff;
+    }
 }
 
 .playerBtnShuffle {

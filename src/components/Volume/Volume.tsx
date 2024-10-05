@@ -1,8 +1,24 @@
+"use client"
 import styles from "./Volume.module.css";
 import classNames from "classnames";
 import shared from "@/components/SharedButtons/SharedButtons.module.css";
+import {ChangeEvent, RefObject, useEffect, useState} from "react";
 
-function Volume () {
+type VolumeProps = {
+    audioRef: RefObject<HTMLAudioElement>
+}
+
+function Volume({audioRef}: VolumeProps) {
+    const [volume, setVolume] = useState(0.5)
+
+    useEffect(() => {
+        if (audioRef.current)
+            audioRef.current.volume = volume
+    }, [volume, audioRef])
+
+    const handleClickVolume = (e: ChangeEvent<HTMLInputElement>) => {
+        setVolume(Number(e.target.value))
+    }
     return (
         <div className={styles.barVolume}>
             <div className={styles.volumeContent}>
@@ -15,7 +31,11 @@ function Volume () {
                     <input
                         className={classNames(styles.volumeProgressLine, shared.btn)}
                         type="range"
-                        name="range"
+                        min={0}
+                        max={1}
+                        step={0.01}
+                        value={volume}
+                        onChange={handleClickVolume}
                     />
                 </div>
             </div>
