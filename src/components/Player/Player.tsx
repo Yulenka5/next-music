@@ -1,32 +1,33 @@
 import TrackPlay from "@/components/TrackPlay/TrackPlay";
 import styles from "./Player.module.css";
-import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 import classNames from "classnames";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {setIsShuffle, setNextTrack, setPrevTrack} from "@/store/features/playlistSlice";
 
 type PlayerProps = {
     handlePlay: () => void,
     handleLoop: () => void,
-    isPlaying: boolean,
     isLoop: boolean
 }
 
-function Player({handlePlay, handleLoop, isPlaying, isLoop}: PlayerProps) {
-    const {currentTrack} = useCurrentTrack()
+function Player({handlePlay, handleLoop, isLoop}: PlayerProps) {
+    const {currentTrack, isPlaying, isShuffle} = useAppSelector((state) => state.playlist)
+    const dispatch = useAppDispatch()
     if (!currentTrack) {
         return null
     }
     const {name, author} = currentTrack
 
     const handleClickPrev = () => {
-        alert("еще не реализовано")
+        dispatch(setPrevTrack())
     }
 
     const handleClickNext = () => {
-        alert("еще не реализовано")
+        dispatch(setNextTrack())
     }
 
     const handleClickShuffle = () => {
-        alert("еще не реализовано")
+        dispatch(setIsShuffle(null))
     }
 
     return (
@@ -56,7 +57,7 @@ function Player({handlePlay, handleLoop, isPlaying, isLoop}: PlayerProps) {
                         <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
                     </svg>
                 </div>
-                <div className={styles.playerBtnShuffle} onClick={handleClickShuffle}>
+                <div className={classNames(styles.playerBtnShuffle, {[styles.active]: isShuffle})} onClick={handleClickShuffle}>
                     <svg>
                         <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
                     </svg>
