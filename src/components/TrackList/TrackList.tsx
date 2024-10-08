@@ -20,7 +20,7 @@ function TrackList ({tracks}: TrackListProps) {
                     </svg>
                 </div>
             </div>
-            {tracks.map((track)=>{ return <Track key={track._id} track={track} /> })}
+            {tracks.map((track)=>{ return <Track key={track._id} tracks={tracks} track={track} /> })}
      </div>
     )
 }
