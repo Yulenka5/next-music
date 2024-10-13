@@ -82,6 +82,10 @@
         fill: transparent;
         stroke: #696969;
     }
+
+    &.active svg {
+        fill: #B672FF
+      }
 }
 
 .trackDislike {

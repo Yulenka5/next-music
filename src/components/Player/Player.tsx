@@ -1,7 +1,7 @@
 import TrackPlay from "@/components/TrackPlay/TrackPlay";
 import styles from "./Player.module.css";
 import classNames from "classnames";
-import {useAppDispatch, useAppSelector} from "@/hooks";
+import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
 import {setIsShuffle, setNextTrack, setPrevTrack} from "@/store/features/playlistSlice";
 
 type PlayerProps = {
@@ -63,7 +63,7 @@ function Player({handlePlay, handleLoop, isLoop}: PlayerProps) {
                     </svg>
                 </div>
             </div>
-            <TrackPlay name={name} author={author}/>
+            <TrackPlay track={currentTrack} />
         </div>
     )
 
