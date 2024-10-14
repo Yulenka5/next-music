@@ -88,12 +88,18 @@
     color: #696969;
 }
 
-.trackTime svg {
-    width: 14px;
-    height: 12px;
-    margin-right: 17px;
-    fill: transparent;
-    stroke: #696969;
+.trackTime {
+    & svg {
+        width: 14px;
+        height: 12px;
+        margin-right: 17px;
+        fill: transparent;
+        stroke: #696969;
+    }
+
+    &.active svg {
+        fill: #B672FF
+    }
 }
 
 .trackTimeText {

@@ -1,11 +1,18 @@
-'use client'
+"use client"
 import Image from "next/image";
 import styles from "./Menu.module.css"
 import Link from "next/link";
-import { useState } from "react";
+import {useState} from "react";
+import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
+import {logout} from "@/store/features/userSlice";
 
 function Menu() {
-const [isOpened, setIsOpened] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const [isOpened, setIsOpened] = useState<boolean>(false)
+    const tokens = useAppSelector((state) => state.user.tokens);
+    function handleLogout() {
+        dispatch(logout())
+    }
 
     return (
         <nav className={styles.mainNav}>
@@ -21,13 +28,14 @@ const [isOpened, setIsOpened] = useState<boolean>(false)
             {isOpened && (<div className={styles.navMenu}>
                 <ul className={styles.menuList}>
                     <li className={styles.menuItem}>
-                        <Link href="#" className={styles.menuLink}>Главное</Link>
+                        <Link href="/tracks" className={styles.menuLink}>Главное</Link>
                     </li>
+                    {tokens.access && (<li className={styles.menuItem}>
+                        <Link href="/tracks/favorite" className={styles.menuLink}>Мой плейлист</Link>
+                    </li>)}
                     <li className={styles.menuItem}>
-                        <Link href="#" className={styles.menuLink}>Мой плейлист</Link>
-                    </li>
-                    <li className={styles.menuItem}>
-                        <Link href="../signin.html" className={styles.menuLink}>Войти</Link>
+                        {tokens.access ? (<Link href="#" className={styles.menuLink} onClick={handleLogout}>Выйти</Link>) : (
+                            <Link href="/login" className={styles.menuLink}>Войти</Link>)}
                     </li>
                 </ul>
             </div>)}

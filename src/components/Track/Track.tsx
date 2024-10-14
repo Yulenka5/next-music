@@ -2,8 +2,9 @@ import styles from "./Track.module.css";
 import classNames from "classnames";
 import { TrackType } from "@/types/tracks";
 import {timeFormat} from "@/utils/helpers";
-import {useAppDispatch, useAppSelector} from "@/hooks";
+import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
 import {setCurrentTrack} from "@/store/features/playlistSlice";
+import {useLikeTrack} from "@/hooks/useLikeTracks";
 
 type TrackProps = {
     track: TrackType,
@@ -12,6 +13,7 @@ type TrackProps = {
 
 function Track ({track, tracks}: TrackProps) {
     const {currentTrack, isPlaying} = useAppSelector((state) => state.playlist)
+    const {isLiked, handleLike} = useLikeTrack(track)
     const dispatch = useAppDispatch()
     const {_id, name, author, album, duration_in_seconds} = track
     const time = timeFormat(duration_in_seconds)
@@ -45,7 +47,7 @@ function Track ({track, tracks}: TrackProps) {
                         >{album}</span
                         >
                     </div>
-                    <div className={styles.trackTime}>
+                    <div className={classNames(styles.trackTime, {[styles.active] : isLiked})} onClick={handleLike}>
                         <svg>
                             <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                         </svg>

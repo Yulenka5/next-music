@@ -6,7 +6,7 @@ import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 import {useEffect, useRef, useState} from "react";
 import ProgressBar from "@/components/Bar/ProgressBar/ProgressBar";
 import TimeBlock from "@/components/Bar/TimeBlock/TimeBlock";
-import {useAppDispatch, useAppSelector} from "@/hooks";
+import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
 import {setIsPlaying, setNextTrack} from "@/store/features/playlistSlice";
 
 function Bar() {

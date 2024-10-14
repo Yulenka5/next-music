@@ -1,12 +1,16 @@
 import styles from "./TrackPlay.module.css";
 import shared from "@/components/SharedButtons/SharedButtons.module.css";
 import classNames from "classnames"
+import {useLikeTrack} from "@/hooks/useLikeTracks";
+import {TrackType} from "@/types/tracks";
 
 type TrackPlayProps = {
-    name: string,
-    author: string
+    track: TrackType,
 }
-function TrackPlay ({name, author}: TrackPlayProps) {
+
+function TrackPlay ({track}: TrackPlayProps) {
+    const {isLiked, handleLike} = useLikeTrack(track)
+
     return (
         <div className={styles.playerTrackPlay}>
             <div className={styles.trackPlayContain}>
@@ -17,25 +21,18 @@ function TrackPlay ({name, author}: TrackPlayProps) {
                 </div>
                 <div className={styles.trackPlayAuthor}>
                     <a className={styles.trackPlayAuthorLink} href="http://"
-                    >{name}</a
+                    >{track.name}</a
                     >
                 </div>
                 <div className={styles.trackPlayAlbum}>
-                    <a className={styles.trackPlayAlbumLink} href="http://">{author}</a>
+                    <a className={styles.trackPlayAlbumLink} href="http://">{track.author}</a>
                 </div>
             </div>
 
             <div className={styles.trackLikeConteiner}>
-                <div className={classNames(styles.trackLike, shared.btnIcon)}>
+                <div className={classNames(styles.trackLike, shared.btnIcon, {[styles.active] : isLiked})} onClick={handleLike}>
                     <svg>
                         <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                    </svg>
-                </div>
-                <div className={classNames(styles.trackDislike, shared.btnIcon)}>
-                    <svg>
-                        <use
-                            xlinkHref="/img/icon/sprite.svg#icon-dislike"
-                        ></use>
                     </svg>
                 </div>
             </div>
