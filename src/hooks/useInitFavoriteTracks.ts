@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
-import {getFavoriteTrack} from "@/store/features/playlistSlice";
+import {getFavoriteTrack} from "@/store/features/playerSlice";
 
 
 export function useInitFavoriteTracks() {

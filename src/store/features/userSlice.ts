@@ -1,12 +1,12 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {fetchUser, fetchUserSignup} from "@/api/user";
 import {fetchToken} from "@/api/token";
-import {UserType} from "@/types/user";
+import {AuthDataType, UserType} from "@/types/user";
 import {Tokens} from "@/types/tokens";
 
 export const getUser = createAsyncThunk(
     "user/getUser",
-    async ({ email, password }: { email: string; password: string }) => {
+    async ({ email, password }: AuthDataType) => {
         const getUsers = fetchUser({ email, password });
         return getUsers;
     }
@@ -14,7 +14,7 @@ export const getUser = createAsyncThunk(
 
 export const signup = createAsyncThunk(
     "user/signup",
-    async ({ email, password }: { email: string; password: string }) => {
+    async ({ email, password }: AuthDataType) => {
         const userSignUp = fetchUserSignup({ email, password });
         return userSignUp;
     }
@@ -22,7 +22,7 @@ export const signup = createAsyncThunk(
 
 export const getTokens = createAsyncThunk(
     "token/getToken",
-    async ({ email, password }: { email: string; password: string }) => {
+    async ({ email, password }: AuthDataType) => {
         const tokens = fetchToken({ email, password });
         return tokens;
     }

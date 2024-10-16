@@ -6,7 +6,7 @@ import {useAppSelector} from "@/hooks/hooks";
 
 
 export default function FavoritePage() {
-    const favoritePlaylist = useAppSelector((state)=> state.playlist.favoritePlaylist)
+    const favoritePlaylist = useAppSelector((state)=> state.player.favoritePlaylist)
 
     return (<>
             <h2 className={styles.centerblockH2}>Избранные треки</h2>

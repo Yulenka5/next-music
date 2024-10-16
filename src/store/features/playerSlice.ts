@@ -1,46 +1,61 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TrackType} from "@/types/tracks";
+import {PlaylistType, TrackType} from "@/types/tracks";
 import {fetchFavoriteTracks} from "@/api/track";
 import {Tokens} from "@/types/tokens";
 
 
 export const getFavoriteTrack = createAsyncThunk(
-    "playlist/getFavoriteTracks",
+    "player/getFavoriteTracks",
     async ({access, refresh}: Tokens) => {
         const favoriteTracks = await fetchFavoriteTracks({access, refresh})
         return favoriteTracks
     }
 )
 
-type PlaylistStateType = {
-    favoritePlaylist: TrackType[]
+type PlayerStateType = {
+    initialPlaylist: PlaylistType
+    favoritePlaylist: PlaylistType
+    visiblePlaylist: PlaylistType
     currentTrack: null | TrackType
-    playlist: TrackType[]
+    playlistName: string
+    activePlaylist: PlaylistType
     shuffledPlaylist: []
     isShuffle: boolean
     isPlaying: boolean
 }
 
-const initialState: PlaylistStateType = {
+const initialState: PlayerStateType = {
+    initialPlaylist: [],
     favoritePlaylist: [],
+    visiblePlaylist: [],
     currentTrack: null,
-    playlist: [],
+    playlistName: "",
+    activePlaylist: [], // то что поет
     shuffledPlaylist: [],
     isShuffle: false,
     isPlaying: false,
 };
 
-const playlistSlice = createSlice({
-    name: "playlist",
+const playerSlice = createSlice({
+    name: "player",
     initialState,
     reducers: {
-        setCurrentTrack: (state, action: PayloadAction<{ track: TrackType, tracks: TrackType[] }>) => {
+        setInitialPlaylist: (state, action: PayloadAction<PlaylistType>) => {
+            state.initialPlaylist = action.payload;
+        },
+        setVisiblePlaylist: (state, action: PayloadAction<PlaylistType>) => {
+            state.visiblePlaylist = action.payload;
+        },
+        setCurrentTrack: (state, action: PayloadAction<{ track: TrackType, tracks: PlaylistType }>) => {
             state.currentTrack = action.payload.track;
-            state.playlist = action.payload.tracks;
+            state.activePlaylist = action.payload.tracks;
             state.shuffledPlaylist = [...action.payload.tracks].sort(() => 0.5 - Math.random());
         },
+        setPlaylistName: (state, action: PayloadAction<string>)=> {
+           state.playlistName = action.payload
+        },
         setPrevTrack: (state) => {
-            const playlist = state.isShuffle ? state.shuffledPlaylist : state.playlist
+            const playlist = state.isShuffle ? state.shuffledPlaylist : state.activePlaylist
             const currentTrackIndex = playlist.findIndex((track) =>
                 track._id === state.currentTrack?._id)
             const newTrack = playlist[currentTrackIndex - 1]
@@ -49,7 +64,7 @@ const playlistSlice = createSlice({
             }
         },
         setNextTrack: (state) => {
-            const playlist = state.isShuffle ? state.shuffledPlaylist : state.playlist
+            const playlist = state.isShuffle ? state.shuffledPlaylist : state.activePlaylist
             const currentTrackIndex = playlist.findIndex((track) =>
                 track._id === state.currentTrack?._id)
             const newTrack = playlist[currentTrackIndex + 1]
@@ -93,6 +108,9 @@ const playlistSlice = createSlice({
 });
 
 export const {
+    setPlaylistName,
+    setVisiblePlaylist,
+    setInitialPlaylist,
     setCurrentTrack,
     setPrevTrack,
     setNextTrack,
@@ -100,5 +118,5 @@ export const {
     setIsPlaying,
     setLikeTrack,
     setDislikeTrack
-} = playlistSlice.actions;
-export const playlistReducer = playlistSlice.reducer;
+} = playerSlice.actions;
+export const playerReducer = playerSlice.reducer;
