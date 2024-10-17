@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { TrackType } from "@/types/tracks";
 import {timeFormat} from "@/utils/helpers";
 import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
-import {setCurrentTrack} from "@/store/features/playlistSlice";
+import {setCurrentTrack} from "@/store/features/playerSlice";
 import {useLikeTrack} from "@/hooks/useLikeTracks";
 
 type TrackProps = {
@@ -12,7 +12,7 @@ type TrackProps = {
 }
 
 function Track ({track, tracks}: TrackProps) {
-    const {currentTrack, isPlaying} = useAppSelector((state) => state.playlist)
+    const {currentTrack, isPlaying} = useAppSelector((state) => state.player)
     const {isLiked, handleLike} = useLikeTrack(track)
     const dispatch = useAppDispatch()
     const {_id, name, author, album, duration_in_seconds} = track

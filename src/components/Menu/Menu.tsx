@@ -9,17 +9,20 @@ import {logout} from "@/store/features/userSlice";
 function Menu() {
     const dispatch = useAppDispatch()
     const [isOpened, setIsOpened] = useState<boolean>(false)
-    const tokens = useAppSelector((state) => state.user.tokens);
+    const tokens = useAppSelector((state) => state.user.tokens)
+
     function handleLogout() {
         dispatch(logout())
     }
 
     return (
         <nav className={styles.mainNav}>
-            <div className={styles.navLogo}>
-                <Image className={styles.logoImage} src="/img/logo.png" alt="Logo"
-                       width={114} height={17}/>
-            </div>
+            <Link href="/tracks">
+                <div className={styles.navLogo}>
+                    <Image className={styles.logoImage} src="/img/logo.png" alt="Logo"
+                           width={114} height={17}/>
+                </div>
+            </Link>
             <div className={styles.navBurger} onClick={() => setIsOpened((prev) => !prev)}>
                 <span className={styles.burgerLine}></span>
                 <span className={styles.burgerLine}></span>
@@ -34,7 +37,8 @@ function Menu() {
                         <Link href="/tracks/favorite" className={styles.menuLink}>Мой плейлист</Link>
                     </li>)}
                     <li className={styles.menuItem}>
-                        {tokens.access ? (<Link href="#" className={styles.menuLink} onClick={handleLogout}>Выйти</Link>) : (
+                        {tokens.access ? (
+                            <Link href="#" className={styles.menuLink} onClick={handleLogout}>Выйти</Link>) : (
                             <Link href="/login" className={styles.menuLink}>Войти</Link>)}
                     </li>
                 </ul>

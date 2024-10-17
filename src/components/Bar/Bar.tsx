@@ -7,10 +7,10 @@ import {useEffect, useRef, useState} from "react";
 import ProgressBar from "@/components/Bar/ProgressBar/ProgressBar";
 import TimeBlock from "@/components/Bar/TimeBlock/TimeBlock";
 import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
-import {setIsPlaying, setNextTrack} from "@/store/features/playlistSlice";
+import {setIsPlaying, setNextTrack} from "@/store/features/playerSlice";
 
 function Bar() {
-    const {currentTrack, isPlaying} = useAppSelector((state) => state.playlist)
+    const {currentTrack, isPlaying} = useAppSelector((state) => state.player)
     const [isLoop, setIsLoop] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<number>(0)
 
@@ -63,7 +63,7 @@ function Bar() {
         <div className={styles.bar}>
             <div className={styles.barContent}>
                 <audio className={styles.audio} ref={audioRef} src={currentTrack.track_file} onTimeUpdate={handleTimeUpdate} onEnded={handleTrackEnded}/>
-                <ProgressBar audioRef={audioRef} value={currentTime} />
+                <ProgressBar audioRef={audioRef} value={currentTime} max={0}/>
                 <div className={styles.barPlayerBlock}>
                     <Player handlePlay={handlePlay} handleLoop={handleLoop} isLoop={isLoop}/>
                     <Volume audioRef={audioRef}/>

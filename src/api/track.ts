@@ -1,5 +1,6 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {Tokens} from "@/types/tokens";
+import {CategoryType, PlaylistType, TrackType} from "@/types/tracks";
 
 const BASE_URL = "https://webdev-music-003b5b991590.herokuapp.com";
 const TRACK_URL =
@@ -11,7 +12,7 @@ type LikeProps = {
     refresh: string;
 }
 
-export async function getTracks() {
+export async function getTracks(): Promise<PlaylistType> {
     const res = await fetch(TRACK_URL + `all/`)
     if (!res.ok) {
         throw new Error(res.statusText)
@@ -20,7 +21,7 @@ export async function getTracks() {
     return data.data
 }
 
-export async function getCategoryTracks(id: string) {
+export async function getCategoryTracks(id: string): Promise<CategoryType> {
     const res = await fetch(BASE_URL + `/catalog/selection/${id}/`);
     if (!res.ok) {
         throw new Error(res.statusText);
@@ -72,3 +73,14 @@ export async function fetchFavoriteTracks({ access, refresh,}: Tokens) {
     const response = await res.json();
     return response.data;
 }
+
+// export async function getCategoryTracks(id: string) {
+//     const res = await fetch(BASE_URL + `/catalog/selection/${id}/`);
+//     if (!res.ok) {
+//         throw new Error(res.statusText);
+//     }
+//
+//     const response = await res.json();
+//
+//     return response.data;
+// }

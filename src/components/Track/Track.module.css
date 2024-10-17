@@ -100,6 +100,10 @@
     &.active svg {
         fill: #B672FF
     }
+
+    &.active:hover svg {
+        fill: rgba(182, 114, 255, 0.8)
+    }
 }
 
 .trackTimeText {

@@ -2,7 +2,7 @@ import TrackPlay from "@/components/TrackPlay/TrackPlay";
 import styles from "./Player.module.css";
 import classNames from "classnames";
 import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
-import {setIsShuffle, setNextTrack, setPrevTrack} from "@/store/features/playlistSlice";
+import {setIsShuffle, setNextTrack, setPrevTrack} from "@/store/features/playerSlice";
 
 type PlayerProps = {
     handlePlay: () => void,
@@ -11,7 +11,7 @@ type PlayerProps = {
 }
 
 function Player({handlePlay, handleLoop, isLoop}: PlayerProps) {
-    const {currentTrack, isPlaying, isShuffle} = useAppSelector((state) => state.playlist)
+    const {currentTrack, isPlaying, isShuffle} = useAppSelector((state) => state.player)
     const dispatch = useAppDispatch()
     if (!currentTrack) {
         return null
