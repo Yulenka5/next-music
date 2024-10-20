@@ -26,6 +26,25 @@
     border: 1px solid #ffffff;
     border-radius: 60px;
     padding: 6px 20px;
+
+    &.active {
+        color: #ad61ff;
+        border-color: #ad61ff;
+    }
+}
+
+.mark {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #ad61ff;
+    color: white;
 }
 
 .filterListContainer {
@@ -68,8 +87,15 @@
     }
 }
 
-.filterLine:hover {
-    text-decoration: underline;
-    color: #b672ff;
+.filterLine {
+    &:hover {
+        text-decoration: underline;
+        color: #b672ff;
+    }
+
+    &.active{
+        color: #ad61ff;
+    }
 }
+
 

@@ -25,4 +25,4 @@ function ProgressBar  ({ audioRef, value, max }: ProgressBarProps) {
     )
 }
 
-export default ProgressBar
+export default React.memo(ProgressBar)

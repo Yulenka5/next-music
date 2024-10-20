@@ -15,7 +15,7 @@ type CategoryProps = {
 
 export default function CategoryPage({params}: CategoryProps) {
     const dispatch = useAppDispatch()
-    const {visiblePlaylist, playlistName} = useAppSelector((state) => state.player)
+    const {visiblePlaylist, filteredPlaylist, playlistName} = useAppSelector((state) => state.player)
 
     useEffect(() => {
         Promise.all([
@@ -23,7 +23,7 @@ export default function CategoryPage({params}: CategoryProps) {
             getTracks(),
         ])
             .then(([categoryData, tracksData]) => {
-                const tracks = tracksData.filter((track)=> categoryData.items.includes(track._id))
+                const tracks = tracksData.filter((track) => categoryData.items.includes(track._id))
                 dispatch(setPlaylistName(categoryData.name))
                 dispatch(setInitialPlaylist(tracksData))
                 dispatch(setVisiblePlaylist(tracks))
@@ -36,7 +36,7 @@ export default function CategoryPage({params}: CategoryProps) {
     return (<>
             <h2 className={styles.centerblockH2}>{playlistName}</h2>
             <Filter tracks={visiblePlaylist}/>
-            <TrackList tracks={visiblePlaylist}/>
+            <TrackList tracks={filteredPlaylist}/>
         </>
 
     );

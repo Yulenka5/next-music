@@ -3,7 +3,7 @@ import Player from "@/components/Player/Player";
 import Volume from "@/components/Volume/Volume";
 import styles from "./Bar.module.css";
 import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import ProgressBar from "@/components/Bar/ProgressBar/ProgressBar";
 import TimeBlock from "@/components/Bar/TimeBlock/TimeBlock";
 import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
@@ -49,15 +49,15 @@ function Bar() {
         }
     }
 
-    const handleTimeUpdate = (e: React.ChangeEvent<HTMLAudioElement>) => {
+    const handleTimeUpdate = useCallback((e: React.ChangeEvent<HTMLAudioElement>) => {
         setCurrentTime(e.currentTarget.currentTime)
-    }
+    }, [setCurrentTime])
 
-    const handleTrackEnded = () => {
+    const handleTrackEnded = useCallback(() => {
         if(!isLoop) {
             dispatch(setNextTrack())
         }
-    }
+    }, [isLoop])
 
     return (
         <div className={styles.bar}>

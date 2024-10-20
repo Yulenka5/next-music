@@ -16,7 +16,6 @@ function Player({handlePlay, handleLoop, isLoop}: PlayerProps) {
     if (!currentTrack) {
         return null
     }
-    const {name, author} = currentTrack
 
     const handleClickPrev = () => {
         dispatch(setPrevTrack())
