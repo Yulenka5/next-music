@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
 import {logout} from "@/store/features/userSlice";
 import Link from "next/link";
 import {useInitFavoriteTracks} from "@/hooks/useInitFavoriteTracks";
+import React from "react";
 
 function Sidebar () {
     useInitFavoriteTracks()

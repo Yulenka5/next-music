@@ -1,5 +1,5 @@
 import styles from "./ProgressBar.module.css"
-import {RefObject} from "react";
+import React, {RefObject} from "react";
 
 type ProgressBarProps = {
     audioRef: RefObject<HTMLAudioElement>,

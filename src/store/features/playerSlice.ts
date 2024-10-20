@@ -111,7 +111,6 @@ const playerSlice = createSlice({
             state.favoritePlaylist.push(action.payload);
         },
         setFilter: (state, action: PayloadAction<{ key: FilterKeyType, value: string }>) => {
-            console.log(action.payload)
             if (action.payload.key === "sort" || action.payload.key === "search")
                 state.filterOptions[action.payload.key] = action.payload.value
             else {

@@ -2,7 +2,6 @@
 import Player from "@/components/Player/Player";
 import Volume from "@/components/Volume/Volume";
 import styles from "./Bar.module.css";
-import {useCurrentTrack} from "@/contexts/CurrentTrackProvider";
 import {useCallback, useEffect, useRef, useState} from "react";
 import ProgressBar from "@/components/Bar/ProgressBar/ProgressBar";
 import TimeBlock from "@/components/Bar/TimeBlock/TimeBlock";
@@ -24,10 +23,6 @@ function Bar() {
             dispatch(setIsPlaying(true))
         }
     }, [currentTrack])
-
-    if (!currentTrack) {
-        return null
-    }
 
     const handlePlay = () => {
         const audio = audioRef.current
@@ -58,6 +53,11 @@ function Bar() {
             dispatch(setNextTrack())
         }
     }, [isLoop])
+
+
+    if (!currentTrack) {
+        return null
+    }
 
     return (
         <div className={styles.bar}>
