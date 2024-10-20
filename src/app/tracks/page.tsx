@@ -1,8 +1,6 @@
-import styles from "../page.module.css";
-import Filter from "@/components/Filter/Filter";
-import TrackList from "@/components/TrackList/TrackList";
 import {TrackType} from "@/types/tracks";
 import {getTracks} from "@/api/track";
+import PageContent from "@/components/PageContent/PageContent";
 
 
 export default async function HomePage() {
@@ -14,11 +12,5 @@ export default async function HomePage() {
         error = err instanceof Error ? "ошибка при загрузке треков" + err.message : "неизвестаная ошибка"
     }
 
-    return (<>
-            <h2 className={styles.centerblockH2}>Треки</h2>
-            <Filter tracks={tracks}/>
-            <TrackList tracks={tracks}/>
-        </>
-
-    );
+    return (<PageContent tracks={tracks} title={"Треки"} />)
 }

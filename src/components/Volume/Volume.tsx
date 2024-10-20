@@ -43,4 +43,4 @@ function Volume({audioRef}: VolumeProps) {
     )
 }
 
-export default Volume;
+export default React.memo(Volume);
