@@ -31,7 +31,7 @@ export default function CategoryPage({params}: CategoryProps) {
             .catch((error) => {
                 console.error(error)
             })
-    })
+    }, [params.id])
 
     return (<>
             <h2 className={styles.centerblockH2}>{playlistName}</h2>
