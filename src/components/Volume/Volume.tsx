@@ -2,7 +2,7 @@
 import styles from "./Volume.module.css";
 import classNames from "classnames";
 import shared from "@/components/SharedButtons/SharedButtons.module.css";
-import {ChangeEvent, RefObject, useEffect, useState} from "react";
+import React, {ChangeEvent, RefObject, useEffect, useState} from "react";
 
 type VolumeProps = {
     audioRef: RefObject<HTMLAudioElement>
@@ -43,4 +43,4 @@ function Volume({audioRef}: VolumeProps) {
     )
 }
 
-export default Volume;
+export default React.memo(Volume);

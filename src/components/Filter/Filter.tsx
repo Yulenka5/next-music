@@ -3,12 +3,18 @@ import styles from "./Filter.module.css";
 import {FilterKind, TrackType} from "@/types/tracks";
 import {useState} from "react";
 import FilterButton from "@/components/Filter/Button/FilterButton";
+import {FilterKeyType} from "@/store/features/playerSlice";
 
 const filterKind: string[] = [
     FilterKind.artist,
     FilterKind.genre,
     FilterKind.year]
 
+const filterKeys: Record<FilterKind, FilterKeyType> = {
+    [FilterKind.artist]: "authors",
+    [FilterKind.genre]: "genres",
+    [FilterKind.year]: "sort",
+}
 
 type FilterProps = {
     tracks: TrackType[]
@@ -45,7 +51,7 @@ function Filter({tracks}: FilterProps) {
                         setActiveFilter(null)
 
                     return (
-                        <FilterButton key={index} title={filter} opened={activeFilter === filter}
+                        <FilterButton filterKey={filterKeys[filter]} key={index} title={filter} opened={activeFilter === filter}
                                       activeFilter={handleFilter} filterList={list}/>
                     )
                 })

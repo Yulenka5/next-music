@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchUser, fetchUserSignup} from "@/api/user";
 import {fetchToken} from "@/api/token";
 import {AuthDataType, UserType} from "@/types/user";
@@ -77,8 +77,8 @@ const userSlice = createSlice({
             state.authState = false;
             state.tokens = getEmptyTokens();
         },
-        setTokens: (state, action) => {
-            state.tokens = action.payload;
+        setError: (state, action: PayloadAction<string>) => {
+            state.error = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -108,5 +108,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, setError } = userSlice.actions;
 export const userReducer = userSlice.reducer;

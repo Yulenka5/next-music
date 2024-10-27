@@ -6,7 +6,7 @@ import Link from "next/link";
 import {useAppDispatch, useAppSelector} from "@/hooks/hooks";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import {getTokens, getUser} from "@/store/features/userSlice";
+import {getTokens, getUser, setError} from "@/store/features/userSlice";
 
 function Signin() {
     const error = useAppSelector((state) => state.user.error);
@@ -26,7 +26,7 @@ function Signin() {
         e.preventDefault();
         try {
             if (!inputValue.email || !inputValue.password) {
-                alert('Введите данные для входа');
+                dispatch(setError('Введите данные для входа'));
                 return;
             }
             await dispatch(getUser(inputValue)).unwrap()
